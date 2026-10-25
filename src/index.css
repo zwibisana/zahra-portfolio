@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f7f4ef;
+  --color-surface: #f1ece2;
+  --color-surface-light: #fffcf8;
+  --color-surface-warm: #f8f2eb;
+  --color-ink: #27221f;
+  --color-ink-soft: #5b514a;
+  --color-muted: #9d948e;
+  --color-muted-2: #998f89;
+  --color-accent: #98887d;
+  --color-link: #8a807a;
+  --color-btn-text: #8b8371;
+  --color-tag-text: #8b8371;
+  --color-line: #e5dfd4;
+
+  /* Served by the Adobe Fonts web project linked in index.html. */
+  --font-sans: "acumin-pro", system-ui, sans-serif;
+  --font-serif: "bogart", Georgia, serif;
+
+  --animate-suggestion-in: suggestion-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes suggestion-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@utility container-page {
+  width: min(1370px, 100% - 2 * clamp(16px, 2.5vw, 36px));
+  margin-inline: auto;
+}
+
+@utility font-display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+
+/* Acumin Pro's metrics leave ~0.04em above its capitals but ~0.27em below the baseline, so text sits
+   high inside pills and buttons. Wrap the label in a span with this class to trim the line box to
+   cap height + baseline, then add back an even 0.152em ((1em - 0.696em cap height) / 2) on each side.
+   The box stays 1em tall (as in Figma) with the capitals optically centered. Browsers without
+   `text-box` support keep the untrimmed text. */
+@utility trim-caps {
+  display: inline-block;
+  @supports (text-box: trim-both cap alphabetic) {
+    text-box: trim-both cap alphabetic;
+    padding-block: 0.152em;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    overflow-x: clip;
+  }
+}
